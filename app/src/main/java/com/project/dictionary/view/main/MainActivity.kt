@@ -2,45 +2,45 @@ package com.project.dictionary.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.project.dictionary.R
-import com.project.dictionary.model.data.AppState
-import com.project.dictionary.presenter.MainActivityPresenter
 import com.project.dictionary.view.App
 import com.project.dictionary.view.BackButtonListener
-import com.project.dictionary.view.base.View
+import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), View {
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
 
     val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
+    val model: MainActivityViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
+    }
 
-    lateinit var presenter: MainActivityPresenter<View>
+    init {
+        App.instance.appComponent.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter = App.instance.presenterHolder.getMainPresenter(App.instance.router)
-        presenter.onCreate()
+        if(savedInstanceState == null) model.onCreate()
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.instance.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.instance.navigatorHolder.removeNavigator()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        presenter.attachView(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.detachView(this)
+        navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {
@@ -49,16 +49,7 @@ class MainActivity : AppCompatActivity(), View {
                 return
             }
         }
-        presenter.backClick()
+        model.backPressed()
     }
 
-    override fun onDestroy() {
-        if (isFinishing)
-            App.instance.presenterHolder.clearMainPresenter()
-        super.onDestroy()
-    }
-
-    override fun renderData(appState: AppState) {
-//        TODO("Not yet implemented")
-    }
 }
