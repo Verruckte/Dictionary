@@ -51,25 +51,33 @@ dependencies {
     //Kotlin
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
     //Rx-Java
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+
+    //Koin for Android
+    implementation 'org.koin:koin-android:2.0.1'
+    implementation 'org.koin:koin-android-viewmodel:2.0.1'
 
     //Retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
 
     //Navigation
     implementation 'ru.terrakok.cicerone:cicerone:5.1.1'
 
     //Dagger
-    implementation 'com.google.dagger:dagger-android:2.38.1'
-    implementation 'com.google.dagger:dagger-android-support:2.38.1'
+    implementation 'com.google.dagger:dagger-android:2.30.1'
+//    implementation 'com.google.dagger:dagger-android-support:2.30.1'
     kapt 'com.google.dagger:dagger-android-processor:2.35.1'
-    kapt 'com.google.dagger:dagger-compiler:2.35.1'
+    kapt 'com.google.dagger:dagger-compiler:2.38.1'
 
     //Test
     testImplementation 'junit:junit:4.13.2'

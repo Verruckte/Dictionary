@@ -11,20 +11,16 @@ import com.project.dictionary.R
 import com.project.dictionary.model.data.AppState
 import com.project.dictionary.model.data.DataModel
 import com.project.dictionary.utils.network.isOnline
-import com.project.dictionary.view.App
 import com.project.dictionary.view.BackButtonListener
 import com.project.dictionary.view.base.BaseFragment
 import com.project.dictionary.view.wordslist.adapter.WordsListRVAdapter
 import kotlinx.android.synthetic.main.fragment_words_list.*
-import javax.inject.Inject
+import org.koin.android.ext.android.getKoin
 
 class WordsListFragment : BaseFragment<AppState>(), BackButtonListener {
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     override val model: WordsListViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WordsListViewModel::class.java)
+        ViewModelProvider(this, getKoin().get()).get(WordsListViewModel::class.java)
     }
 
     private val observer = Observer<AppState> { renderData(it)  }
@@ -42,10 +38,6 @@ class WordsListFragment : BaseFragment<AppState>(), BackButtonListener {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "12345"
     }
 
-    init {
-        App.instance.appComponent.inject(this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,7 +48,7 @@ class WordsListFragment : BaseFragment<AppState>(), BackButtonListener {
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        println("model: ${model.toString()} ")
+        println("model: $model ")
         model.subscribe().observe(viewLifecycleOwner, observer)
 
         search_fab.setOnClickListener {

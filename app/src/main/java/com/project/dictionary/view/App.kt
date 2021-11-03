@@ -1,8 +1,8 @@
 package com.project.dictionary.view
 
 import android.app.Application
-import com.project.dictionary.di.AppComponent
-import com.project.dictionary.di.DaggerAppComponent
+import com.project.dictionary.di.modules.*
+import org.koin.core.context.startKoin
 
 class App: Application() {
 
@@ -10,15 +10,12 @@ class App: Application() {
         lateinit var instance: App
     }
 
-    lateinit var appComponent: AppComponent
-        private set
-
     override fun onCreate() {
         super.onCreate()
         instance = this
-        appComponent = DaggerAppComponent.builder()
-            .application(this)
-            .build()
+        startKoin {
+            modules(listOf(application, viewModelModule, navigation, mainActivity, wordsListScreen))
+        }
     }
 
 }
