@@ -1,4 +1,4 @@
-package com.project.dictionary.model.datasource
+package com.project.dictionary.model.datasource.network
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.project.dictionary.model.datasource.DataSource
 
 
 class RetrofitImpl : DataSource<List<DataModel>> {

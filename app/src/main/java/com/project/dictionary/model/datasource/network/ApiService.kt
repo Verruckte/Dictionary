@@ -1,4 +1,4 @@
-package com.project.dictionary.model.datasource
+package com.project.dictionary.model.datasource.network
 
 import com.project.dictionary.model.data.DataModel
 import kotlinx.coroutines.Deferred

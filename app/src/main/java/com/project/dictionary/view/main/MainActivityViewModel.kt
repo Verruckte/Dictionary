@@ -13,4 +13,5 @@ class MainActivityViewModel (private val router: Router ): ViewModel(){
     fun onCreate() {
         router.replaceScreen(Screens.WordsListScreen())
     }
+
 }

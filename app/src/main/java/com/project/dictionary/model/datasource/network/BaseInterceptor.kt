@@ -1,4 +1,4 @@
-package com.project.dictionary.model.datasource
+package com.project.dictionary.model.datasource.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

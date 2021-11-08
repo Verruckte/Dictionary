@@ -1,9 +1,8 @@
 package com.project.dictionary.view.wordslist
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.*
 import android.view.View.inflate
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +28,7 @@ class WordsListFragment : BaseFragment<AppState>(), BackButtonListener {
     private val onListItemClickListener: WordsListRVAdapter.OnListItemClickListener =
         object : WordsListRVAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                // some logic
+                model.wordClicked(data)
             }
         }
 
@@ -38,11 +37,11 @@ class WordsListFragment : BaseFragment<AppState>(), BackButtonListener {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "12345"
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): android.view.View? = inflate(context, R.layout.fragment_words_list, null)
+    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View {
+        val v: View = inflater.inflate(R.layout.fragment_words_list, parent, false)
+        setHasOptionsMenu(true)
+        return v
+    }
 
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
@@ -67,50 +66,31 @@ class WordsListFragment : BaseFragment<AppState>(), BackButtonListener {
         }
     }
 
-    override fun renderData(dataModel: AppState) {
-        when (dataModel) {
-            is AppState.Success -> {
-                showViewWorking()
-                val dataModel = dataModel.data
-                if (dataModel.isNullOrEmpty()) {
-                    showAlertDialog(
-                        getString(R.string.dialog_tittle_sorry),
-                        getString(R.string.empty_server_response_on_success)
-                    )
-                } else {
-                    if (adapter == null) {
-                        main_activity_recyclerview.layoutManager = LinearLayoutManager(context)
-                        main_activity_recyclerview.adapter = WordsListRVAdapter(onListItemClickListener, dataModel)
-                    } else {
-                        adapter!!.setData(dataModel)
-                    }
-                }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                model.historyMenuItemClicked()
+                true
             }
-            is AppState.Loading -> {
-                showViewLoading()
-                if (dataModel.progress != null) {
-                    progress_bar_horizontal.visibility = android.view.View.VISIBLE
-                    progress_bar_round.visibility = android.view.View.GONE
-                    progress_bar_horizontal.progress = dataModel.progress
-                } else {
-                    progress_bar_horizontal.visibility = android.view.View.GONE
-                    progress_bar_round.visibility = android.view.View.VISIBLE
-                }
-            }
-            is AppState.Error -> {
-                showViewWorking()
-                showAlertDialog(getString(R.string.error_stub), dataModel.error.message)            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun showViewWorking() {
-        loading_frame_layout.visibility = android.view.View.GONE
-    }
-
-    private fun showViewLoading() {
-        loading_frame_layout.visibility = android.view.View.VISIBLE
-    }
-
     override fun backPressed(): Boolean = model.backPressed()
+
+    override fun setDataToAdapter(data: List<DataModel>) {
+        if (adapter == null) {
+            words_list_recyclerview.layoutManager = LinearLayoutManager(context)
+            words_list_recyclerview.adapter = WordsListRVAdapter(onListItemClickListener, data)
+        } else {
+            adapter!!.setData(data)
+        }
+    }
 
 }

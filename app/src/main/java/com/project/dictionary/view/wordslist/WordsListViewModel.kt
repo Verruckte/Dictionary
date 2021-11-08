@@ -2,6 +2,9 @@ package com.project.dictionary.view.wordslist
 
 import androidx.lifecycle.LiveData
 import com.project.dictionary.model.data.AppState
+import com.project.dictionary.model.data.DataModel
+import com.project.dictionary.navigation.Screens
+import com.project.dictionary.utils.convertMeaningsToString
 import com.project.dictionary.utils.parseSearchResults
 import com.project.dictionary.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,5 +43,18 @@ class WordsListViewModel ( private val interactor: WordsListInteractor,
     override fun onCleared() {
         liveDataForViewToObserve.value = AppState.Success(null)
         super.onCleared()
+    }
+
+    fun wordClicked(data: DataModel){
+        router.navigateTo(Screens.DescriptionScreen(
+            data.text!!,
+            convertMeaningsToString(data.meanings!!),
+            data.meanings[0].imageUrl
+        ))
+        println("PICTURE URL = ${data.meanings[0].imageUrl}")
+    }
+
+    fun historyMenuItemClicked() {
+        router.navigateTo(Screens.HistoryScreen())
     }
 }

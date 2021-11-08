@@ -2,6 +2,8 @@ package com.project.dictionary.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import com.project.dictionary.R
 import com.project.dictionary.view.BackButtonListener
