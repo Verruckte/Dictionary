@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+
+dependencies {
+    implementation project(Modules.model)
+    implementation project(Modules.repository)
+    implementation project(Modules.core)
+    implementation project(Modules.utils)
+
+    //Design
+    implementation AndroidX.appcompat
+    implementation AndroidX.swiperefreshlayout
+    implementation Design.material
+
+    //Navigation
+    implementation Cicerone.cicerone
+
+
+    //Download images
+    //Picasso
+    implementation Picasso.picasso
+    //Glide
+    implementation Glide.glide
+    implementation Glide.glide_compiler
+
+    //Kotlin
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+    implementation Kotlin.coroutines_core
+    implementation Kotlin.coroutines_android
+
+    //Koin for Android
+    implementation Koin.koin_android
+    implementation Koin.koin_view_model
+
+    //Test
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.runner
+    androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+repositories {
+    mavenCentral()
+}
