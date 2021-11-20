@@ -1,11 +1,10 @@
 package com.project.dictionary.utils
 
-import com.project.dictionary.model.data.AppState
-import com.project.dictionary.model.data.DataModel
-import com.project.dictionary.model.data.Meanings
-import com.project.dictionary.model.data.Translation
-import com.project.dictionary.model.datasource.database.room.HistoryEntity
-
+import com.project.model.data.AppState
+import com.project.model.data.DataModel
+import com.project.model.data.Meanings
+import com.project.model.data.Translation
+import com.project.repository.datasource.database.room.HistoryEntity
 
 fun parseSearchResults(state: AppState): AppState {
     val newSearchResults = arrayListOf<DataModel>()
@@ -26,8 +25,8 @@ fun parseSearchResults(state: AppState): AppState {
 private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
+        for (meaning in dataModel.meanings!!) {
+            if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
                 newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
             }
         }
@@ -117,8 +116,8 @@ private fun getSuccessResultData(
 private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
+        for (meaning in dataModel.meanings!!) {
+            if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
                 newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
             }
         }

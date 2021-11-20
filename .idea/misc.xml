@@ -3,14 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/drawable/bottom_sheet_dialog_background.xml" value="0.11197916666666667" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/drawable/ic_delete_text.xml" value="0.11197916666666667" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/drawable/ic_search.xml" value="0.11197916666666667" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/layout/fragment_words_list.xml" value="0.1" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/layout/history_rv_item.xml" value="0.1" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/layout/search_dialog_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/layout/words_list_rv_item.xml" value="0.1" />
-        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/descriptionscreen/src/main/res/drawable/ic_no_photo_vector.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/wordslistscreen/src/main/res/menu/history_menu_fragment.xml" value="0.1" />
       </map>
     </option>
   </component>
