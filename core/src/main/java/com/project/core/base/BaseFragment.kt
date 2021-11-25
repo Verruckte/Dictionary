@@ -1,14 +1,16 @@
 package com.project.core.base
 
-import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.project.core.R
 import com.project.core.viewmodel.BaseViewModel
 import com.project.model.data.AppState
 import com.project.model.data.DataModel
-import com.project.utils.network.isOnline
+import com.project.utils.network.OnlineLiveData
 import com.project.utils.ui.AlertDialogFragment
+import com.project.utils.ui.getLastWord
+import com.project.utils.ui.toast
 import kotlinx.android.synthetic.main.loading_layout.*
 
 
@@ -19,17 +21,14 @@ abstract class BaseFragment<T : AppState> : Fragment() {
     protected var isNetworkAvailable: Boolean = false
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isNetworkAvailable = isOnline(requireActivity().applicationContext)
-    }
 
     override fun onResume() {
         super.onResume()
-        isNetworkAvailable = isOnline(requireActivity().applicationContext)
-        if (!isNetworkAvailable && isDialogNull()) {
-            showNoInternetConnectionDialog()
-        }
+        subscribeToNetworkChange()
+
+        //Check SharedPreferencesDelegate:
+        val word by getLastWord<String>()
+        println("Last word = " + word)
     }
 
     protected fun renderData(appState: T) {
@@ -57,8 +56,8 @@ abstract class BaseFragment<T : AppState> : Fragment() {
                     progress_bar_round.visibility = View.GONE
                     progress_bar_horizontal.progress = appState.progress!!
                 } else {
-                    progress_bar_horizontal.visibility = View.GONE
-                    progress_bar_round.visibility = View.VISIBLE
+                    progress_bar_horizontal?.visibility = View.GONE
+                    progress_bar_round?.visibility = View.VISIBLE
                 }
             }
             is AppState.Error -> {
@@ -76,11 +75,11 @@ abstract class BaseFragment<T : AppState> : Fragment() {
     }
 
     private fun showViewWorking() {
-        loading_frame_layout.visibility = View.GONE
+        loading_frame_layout?.visibility = View.GONE
     }
 
     private fun showViewLoading() {
-        loading_frame_layout.visibility = View.VISIBLE
+        loading_frame_layout?.visibility = View.VISIBLE
     }
 
     protected fun showAlertDialog(title: String?, message: String?) {
@@ -95,5 +94,17 @@ abstract class BaseFragment<T : AppState> : Fragment() {
 
     companion object {
         private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
+    }
+
+    private fun subscribeToNetworkChange() {
+        OnlineLiveData(requireContext()).observe(
+            viewLifecycleOwner,
+            Observer<Boolean> {
+                isNetworkAvailable = it
+                println("NETWORK, available:$it")
+                if (!isNetworkAvailable) {
+                    requireContext().toast(R.string.dialog_message_device_is_offline)
+                }
+            })
     }
 }

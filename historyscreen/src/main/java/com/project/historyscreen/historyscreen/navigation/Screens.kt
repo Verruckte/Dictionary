@@ -1,4 +1,4 @@
-package com.project.historyscreen.navigation
+package com.project.historyscreen.historyscreen.navigation
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 

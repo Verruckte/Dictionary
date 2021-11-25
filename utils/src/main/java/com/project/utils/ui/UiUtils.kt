@@ -1,6 +1,7 @@
 package com.project.utils.ui
 
 import android.content.Context
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.project.utils.R
 
@@ -22,3 +23,6 @@ fun getAlertDialog(context: Context, title: String?, message: String?): AlertDia
     builder.setPositiveButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
     return builder.create()
 }
+
+fun Context.toast(message: Int) =
+    Toast.makeText(this,  this.getResources().getString(message), Toast.LENGTH_SHORT).show()

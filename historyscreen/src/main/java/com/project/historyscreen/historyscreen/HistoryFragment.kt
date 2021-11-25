@@ -3,15 +3,15 @@ package com.project.historyscreen.historyscreen
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.core.BackButtonListener
 import com.project.core.base.BaseFragment
+import com.project.dictionary.di.modules.injectDependencies
 import com.project.historyscreen.R
 import com.project.model.data.AppState
 import com.project.model.data.DataModel
 import kotlinx.android.synthetic.main.fragment_history.*
-import org.koin.android.ext.android.getKoin
+import org.koin.android.scope.currentScope
 
 
 class HistoryFragment : BaseFragment<AppState>(), BackButtonListener {
@@ -22,7 +22,8 @@ class HistoryFragment : BaseFragment<AppState>(), BackButtonListener {
     }
 
     override val model: HistoryViewModel by lazy {
-        ViewModelProvider(this, getKoin().get()).get(HistoryViewModel::class.java)
+        injectDependencies()
+        currentScope.get()
     }
 
     private val observer = Observer<AppState> { renderData(it)  }

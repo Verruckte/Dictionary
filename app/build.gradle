@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id  'kotlin-kapt'
+    id 'kotlin-kapt'
     id 'kotlin-android-extensions'
 }
 
@@ -35,6 +35,9 @@ android {
     kapt {
         generateStubs = true
     }
+
+    dynamicFeatures = [Modules.historyScreen]
+
 }
 
 dependencies {
@@ -43,7 +46,6 @@ dependencies {
     implementation project(Modules.model)
     implementation project(Modules.repository)
     implementation project(Modules.utils)
-    implementation project(Modules.historyScreen)
     implementation project(Modules.wordslistScreen)
     implementation project(Modules.descriptionScreen)
 
@@ -89,6 +91,9 @@ dependencies {
     implementation Room.runtime
     kapt Room.compiler
     implementation Room.room_ktx
+
+    //Google Play libraries
+    implementation GooglePlay.googlePlayCore
 
     //Test
     testImplementation TestImpl.junit

@@ -8,7 +8,6 @@ dependencies {
     implementation project(Modules.core)
     implementation project(Modules.descriptionScreen)
     implementation project(Modules.utils)
-    implementation project(Modules.historyScreen)
 
     //Design
     implementation AndroidX.appcompat
@@ -16,6 +15,9 @@ dependencies {
 
     //Navigation
     implementation Cicerone.cicerone
+
+    //Google Play libraries
+    implementation GooglePlay.googlePlayCore
 
     //Kotlin
     implementation Kotlin.core

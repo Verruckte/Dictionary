@@ -34,22 +34,22 @@ object Versions {
     const val multidex = "1.0.3"
 
     //AndroidX
-    const val appcompat = "1.4.0-rc01"
-    const val swiperefreshlayout = "1.2.0-alpha01"
+    const val appcompat = "1.3.0-beta01"
+    const val swiperefreshlayout = "1.1.0"
 
     //Design
-    const val material = "1.4.0"
+    const val material = "1.3.0"
 
     //Kotlin
-    const val core = "1.7.0"
-    const val stdlib = "1.5.31"
-    const val coroutinesCore = "1.5.2"
-    const val coroutinesAndroid = "1.5.2"
+    const val core = "1.3.2"
+    const val stdlib = "1.4.10"
+    const val coroutinesCore = "1.4.1"
+    const val coroutinesAndroid = "1.4.1"
 
     //Retrofit
     const val retrofit = "2.9.0"
     const val converterGson = "2.9.0"
-    const val interceptor = "4.9.1"
+    const val interceptor = "4.9.0"
     const val adapterCoroutines = "0.9.2"
 
     //Koin
@@ -57,24 +57,27 @@ object Versions {
     const val koinViewModel = "2.0.1"
 
     //Glide
-    const val glide = "4.12.0"
-    const val glideCompiler = "4.11.0"
+    const val glide = "4.11.0"
+    const val glideCompiler = "4.9.0"
 
     //Picasso
     const val picasso = "2.5.2"
 
     //Room
-    const val roomKtx = "2.4.0-beta01"
-    const val runtime = "2.4.0-beta01"
-    const val roomCompiler = "2.4.0-beta01"
+    const val roomKtx = "2.3.0-beta02"
+    const val runtime = "2.3.0-beta02"
+    const val roomCompiler = "2.3.0-beta02"
 
     //Navigation
     const val cicerone = "5.1.1"
 
     //Test
-    const val jUnit = "4.13.2"
-    const val runner = "1.4.0"
-    const val espressoCore = "3.4.0"
+    const val jUnit = "4.13.1"
+    const val runner = "1.3.0"
+    const val espressoCore = "3.3.0"
+
+    //Google Play
+    const val googlePlayCore = "1.6.3"
 }
 
 object AndroidX {
@@ -134,4 +137,8 @@ object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
     const val runner = "androidx.test:runner:${Versions.runner}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+}
+
+object GooglePlay {
+    const val googlePlayCore = "com.google.android.play:core:${Versions.googlePlayCore}"
 }

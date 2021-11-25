@@ -1,15 +1,47 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion Config.compile_sdk
+    buildToolsVersion Config.build_tools
+
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.target_sdk
+    }
+
+    compileOptions {
+        sourceCompatibility Config.java_version
+        targetCompatibility Config.java_version
+    }
+
+    kotlinOptions {
+        jvmTarget = Config.jvm_target
+    }
+
+}
 
 dependencies {
+    implementation project(Modules.app)
     implementation project(Modules.model)
     implementation project(Modules.repository)
     implementation project(Modules.core)
     implementation project(Modules.descriptionScreen)
 
-    //Design
+    // AndroidX
+    implementation Tools.multidex
+    implementation Tools.javaxinject
     implementation AndroidX.appcompat
+
+    // Room
+    implementation Room.runtime
+    implementation Room.compiler
+    implementation Room.room_ktx
+
+    //Design
     implementation Design.material
 
     //Navigation
@@ -20,6 +52,10 @@ dependencies {
     implementation Kotlin.stdlib
     implementation Kotlin.coroutines_core
     implementation Kotlin.coroutines_android
+
+    //Koin for Android
+    implementation Koin.koin_android
+    implementation Koin.koin_view_model
 
     //Koin for Android
     implementation Koin.koin_android

@@ -55,7 +55,7 @@ class WordsListViewModel ( private val interactor: WordsListInteractor,
         println("PICTURE URL = ${data.meanings!![0].imageUrl}")
     }
 
-    fun historyMenuItemClicked() {
-        router.navigateTo(Screens.HistoryScreen())
+    fun historyMenuItemClicked(historyFragment: Any) {
+        router.navigateTo(Screens.NewModuleHistoryScreen(historyFragment))
     }
 }

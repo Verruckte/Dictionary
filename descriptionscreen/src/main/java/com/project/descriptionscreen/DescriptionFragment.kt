@@ -9,24 +9,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.project.core.BackButtonListener
-import com.project.utils.network.isOnline
+import com.project.utils.network.OnlineLiveData
 import com.project.utils.ui.AlertDialogFragment
+import com.project.utils.ui.toast
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_description.*
 import org.koin.android.ext.android.getKoin
 import ru.terrakok.cicerone.Router
 
-class DescriptionFragment: Fragment(), BackButtonListener {
+class DescriptionFragment: Fragment(), com.project.core.BackButtonListener {
 
     private val router: Router = getKoin().get()
+    protected var isNetworkAvailable: Boolean = false
 
     companion object {
 
@@ -56,6 +58,7 @@ class DescriptionFragment: Fragment(), BackButtonListener {
         // setHasOptionsMenu(true) makes is possible to handle clicks on menu items
         setHasOptionsMenu(true)
         setActionbarHomeButtonEnable()
+        subscribeToNetworkChange()
         description_screen_swipe_refresh_layout.setOnRefreshListener{ startLoadingOrShowError() }
         setData()
     }
@@ -96,7 +99,7 @@ class DescriptionFragment: Fragment(), BackButtonListener {
     }
 
     private fun startLoadingOrShowError() {
-        if (context?.let { isOnline(it) } == true) {
+        if (isNetworkAvailable) {
             setData()
         } else {
             AlertDialogFragment.newInstance(
@@ -138,7 +141,7 @@ class DescriptionFragment: Fragment(), BackButtonListener {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
-                    target: Target<Drawable>?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
                     stopRefreshAnimationIfNeeded()
@@ -169,6 +172,17 @@ class DescriptionFragment: Fragment(), BackButtonListener {
         setActionbarHomeButtonDisable()
         router.exit()
         return true
+    }
+
+    private fun subscribeToNetworkChange() {
+        OnlineLiveData(requireContext()).observe(
+            viewLifecycleOwner,
+            Observer<Boolean> {
+                isNetworkAvailable = it
+                if (!isNetworkAvailable) {
+                    requireContext().toast(com.project.core.R.string.dialog_message_device_is_offline)
+                }
+            })
     }
 
 }

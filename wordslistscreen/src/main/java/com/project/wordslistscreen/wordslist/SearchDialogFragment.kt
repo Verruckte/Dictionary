@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
+import com.project.utils.ui.saveLastWord
 import com.project.wordslistscreen.R
 import kotlinx.android.synthetic.main.search_dialog_fragment.*
 
@@ -46,6 +47,9 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     private val onSearchButtonClickListener =
         View.OnClickListener {
             onSearchClickListener?.onClick(searchEditText.text.toString())
+
+            //Check SharedPreferencesDelegate:
+            saveLastWord(searchEditText.text.toString())
             dismiss()
         }
 

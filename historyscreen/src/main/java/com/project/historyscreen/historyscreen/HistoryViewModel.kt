@@ -5,7 +5,7 @@ import com.project.model.data.AppState
 import com.project.model.data.DataModel
 import com.project.core.viewmodel.BaseViewModel
 import com.project.historyscreen.convertMeaningsToString
-import com.project.historyscreen.navigation.Screens
+import com.project.historyscreen.historyscreen.navigation.Screens
 import com.project.historyscreen.parseLocalSearchResults
 import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
