@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/descriptionscreen/src/main/res/drawable/ic_no_photo_vector.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/wordslistscreen/src/main/res/drawable/ic_baseline_history.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/wordslistscreen/src/main/res/drawable/ic_baseline_settings.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/wordslistscreen/src/main/res/drawable/ic_search.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/wordslistscreen/src/main/res/menu/history_menu_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Dictionary/wordslistscreen/src/main/res/menu/main_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

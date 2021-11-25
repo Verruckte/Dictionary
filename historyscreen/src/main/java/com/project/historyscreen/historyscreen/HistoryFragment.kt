@@ -2,16 +2,19 @@ package com.project.historyscreen.historyscreen
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.core.BackButtonListener
 import com.project.core.base.BaseFragment
-import com.project.dictionary.di.modules.injectDependencies
 import com.project.historyscreen.R
+import com.project.historyscreen.di.injectDependencies
 import com.project.model.data.AppState
 import com.project.model.data.DataModel
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.android.scope.currentScope
+import com.project.utils.ui.recordInitialMarginForView
+import com.project.utils.ui.requestApplyInsetsWhenAttached
 
 
 class HistoryFragment : BaseFragment<AppState>(), BackButtonListener {
@@ -72,6 +75,23 @@ class HistoryFragment : BaseFragment<AppState>(), BackButtonListener {
         super.onViewCreated(view, savedInstanceState)
         println("history fragment viewmodel: $model ")
         model.subscribe().observe(viewLifecycleOwner, observer)
+
+        fixMarginsWhenApplyWindowInsets(view)
+
+    }
+
+    fun fixMarginsWhenApplyWindowInsets(view: View){
+        val rvInitialMargin = recordInitialMarginForView(history_fragment_recyclerview)
+
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { v, insets ->
+            val params = history_fragment_recyclerview?.layoutParams as ViewGroup.MarginLayoutParams
+            params.topMargin = rvInitialMargin.top + insets.systemWindowInsetTop
+//                    (requireActivity() as AppCompatActivity).supportActionBar?.height!!
+            history_fragment_recyclerview?.layoutParams = params
+
+            insets.consumeSystemWindowInsets()
+        }
+        view.rootView.requestApplyInsetsWhenAttached()
     }
 
     override fun onResume() {

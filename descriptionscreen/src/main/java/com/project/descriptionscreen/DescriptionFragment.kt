@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -18,6 +19,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.project.utils.network.OnlineLiveData
 import com.project.utils.ui.AlertDialogFragment
+import com.project.utils.ui.recordInitialMarginForView
+import com.project.utils.ui.requestApplyInsetsWhenAttached
 import com.project.utils.ui.toast
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -61,6 +64,23 @@ class DescriptionFragment: Fragment(), com.project.core.BackButtonListener {
         subscribeToNetworkChange()
         description_screen_swipe_refresh_layout.setOnRefreshListener{ startLoadingOrShowError() }
         setData()
+
+        fixMarginsWhenApplyWindowInsets(view)
+
+    }
+
+    fun fixMarginsWhenApplyWindowInsets(view: View){
+        val descriptionHeaderInitialMargin = recordInitialMarginForView(description_header)
+
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { v, insets ->
+            val params = description_header.layoutParams as ViewGroup.MarginLayoutParams
+            params.topMargin = descriptionHeaderInitialMargin.top + insets.systemWindowInsetTop
+//                    (requireActivity() as AppCompatActivity).supportActionBar?.height!!
+            description_header.layoutParams = params
+
+            insets.consumeSystemWindowInsets()
+        }
+        view.rootView.requestApplyInsetsWhenAttached()
     }
 
 

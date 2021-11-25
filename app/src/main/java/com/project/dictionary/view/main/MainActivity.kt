@@ -2,9 +2,11 @@ package com.project.dictionary.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.project.dictionary.R
 import com.project.dictionary.di.modules.injectDependencies
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.getKoin
 import org.koin.core.qualifier.named
 import ru.terrakok.cicerone.NavigatorHolder
@@ -19,7 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
         initViewModel()
         if(savedInstanceState == null) model.onCreate()
     }

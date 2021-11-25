@@ -16,8 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:fitsSystemWindows="true">
+        android:id="@+id/root">
 
         <TextView
             android:id="@+id/description_header"
